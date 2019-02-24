@@ -1,0 +1,74 @@
+DOM
+ -一个XML文件在缓存中以树形结构保存，读取
+ -用途
+    -定位浏览xml任何一个节点信息
+    -添加删除相应内容
+ -minidom
+    -minidom.parse(filename):加载读取的xml文件，filename也可以是xml代码
+    -doc.documentElement：获取xml文档对象，一个xml文件只有一个对于的文档对象
+    -node.getAttribute(attr_name):获取xml节点的属性值
+    -node.getElementByTagName(tage_name)：得到一个节点对象集合
+    -node.childNodes:得到所有孩子节点
+    -node.childNodes[indes].nodeValve:获得单个节点值
+    -node.fistNode:得到第一个节点，等价于node.childNodes[0]
+    -node.attributes[tage_name]
+    
+-etree
+    -以树形结构来表示xml
+    -root.getiterator:得到相应的可迭代的node集合
+    -root.iter
+    -find(node_name):查找指定node_name的节点，返回一个node
+    -root.findall(node_name):返回多个node_name的节点
+    -node.tag:node对应的tagename
+    -node.text:node的文本值
+    -node.attrib:是node的属性的字典类型的内容
+    
+dom案例
+import xml.dom.minidom
+from xml.dom.minidom import parse
+
+DOMTree = xml.dom.minidom.parse("stu.xml")
+
+doc = DOMTree.documentElement
+
+for ele in doc.childNodes:
+    if ele.nodeName == "teacher":
+        print("--------Node:{0}-------".format(ele.nodeName))
+        childs = ele.childNodes
+        for child in childs:
+            if child.nodeName == "name":
+                print("Name:{0}".format(child.childNodes[0].data))
+            if child.nodeName == "age":
+                print("age:{0}".format(child.childNodes[0].data))
+                
+xml文件
+<?xml version="1.0" encoding="UTF-8" ?>
+<school>
+
+    <teacher desc="math" score="good">
+        <name>aaa</name>
+        <age>56</age>
+    </teacher>
+
+    <studeng type="m">
+        <name>ws</name>
+        <age>23</age>
+    </studeng>
+
+    <studeng type="w">
+        <name>zjj</name>
+        <age>22</age>
+    </studeng>
+
+    <studeng type="m">
+        <name>zhiz</name>
+        <age>21</age>
+    </studeng>
+
+    <studeng type="w">
+        <name>lxy</name>
+        <age>20</age>
+    </studeng>
+
+
+</school>
